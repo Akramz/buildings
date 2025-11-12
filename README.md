@@ -107,6 +107,6 @@ Contributions to this project are welcome. Please fork the repository and submit
 
 ## License
 
-The code in this repository is licensed under the [MIT License](LICENSE.md).
+The code in this repository is licensed under the [MIT License](LICENSE).
 
 The building density & height dataset (all Cloud-Optimized GeoTIFFs and the GeoPackage tile index described above) is licensed under the **Community Data License Agreement (CDLA) Permissive 2.0**. You may use, modify, and redistribute the data under the terms of that license, with appropriate attribution. Full text: https://cdla.dev/permissive-2-0/
