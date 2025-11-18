@@ -33,7 +33,16 @@ pip install -e .
 
 ### 3. Index Files
 
-You will find two index files in the `data/` directory:
+You will find two zipped index files in the `data/` directory. **Unzip them first:**
+
+```bash
+cd data/
+unzip planet_index.feather.zip
+unzip google_index.feather.zip
+cd ..
+```
+
+These provide:
 
 1. **`planet_index.feather`**: Planet quad geometries with columns `quad` (quad name) and `geometry`
 2. **`google_index.feather`**: Google tile index with columns `tile_path`, `geometry`, and `crs`
