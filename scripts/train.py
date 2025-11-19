@@ -23,9 +23,7 @@ os.environ.update(
 )
 
 import lightning.pytorch as pl
-import numpy as np
 import pandas as pd
-import warnings
 
 warnings.filterwarnings(
     "ignore", category=FutureWarning, message=".*torch.cuda.amp.custom_fwd.*"

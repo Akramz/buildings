@@ -182,7 +182,6 @@ class TileDataset(Dataset):
             # Close the reader
             if ds is not None:
                 ds.close()
-                ds = None
 
             # Only interpolate if the current size doesn't match target size
             current_size = (band.shape[-2], band.shape[-1])
@@ -231,7 +230,6 @@ class TileDataset(Dataset):
             )
             if ds_rgb is not None:
                 ds_rgb.close()
-                ds_rgb = None
         except Exception as e:
             if ds_rgb is not None:
                 ds_rgb.close()
@@ -281,7 +279,6 @@ class TileDataset(Dataset):
                     target_shape=target_shape,
                 )
                 ds_mask.close()
-                ds_mask = None
         except Exception as e:
             if ds_mask is not None:
                 ds_mask.close()

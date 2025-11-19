@@ -111,7 +111,7 @@ def create_density_map(quad, geom, overture_feathers_path, output_path):
                 # Union geometries by cell_id and calculate areas
                 overlap_areas = (
                     intersected.groupby("cell_id")
-                    .agg({"geometry": lambda x: unary_union(x)})
+                    .agg({"geometry": unary_union})
                     .reset_index()
                 )
                 overlap_areas["overlap_area"] = overlap_areas["geometry"].area
