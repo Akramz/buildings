@@ -54,7 +54,8 @@ pip install -r requirements-data.txt
 
 Download the tile index GeoPackage to the `data/` directory.
 ```bash
-wget -P data/ https://opendata.aiforgood.ai/building-density/tile_index.gpkg
+mkdir -p data/
+wget -O data/planet_index.gpkg https://opendata.aiforgood.ai/building-density/tile_index.gpkg
 ```
 
 ## Tutorial notebooks
@@ -122,6 +123,25 @@ Want to train the model yourself? See **[TRAINING.md](TRAINING.md)** for:
 - Inference on new imagery
 
 **Note:** Requires access to Planet imagery quarterly mosaics.
+
+---
+
+## Citation
+
+Please cite the following paper if you use this code or dataset:
+```
+@misc{microsoftbuildings,
+      title={TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery}, 
+      author={Tammy Glazer and Gilles Q. Hacheme and Akram Zaytar and Luana Marotti and Amy Michaels and Girmaw Abebe Tadesse and Kevin White and Rahul Dodhia and Andrew Zolli and Inbal Becker-Reshef and Juan M. Lavista Ferres and Caleb Robinson},
+      year={2025},
+      eprint={2511.12104},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2511.12104}, 
+}
+```
+
+Paper: https://arxiv.org/abs/2511.12104
 
 ---
 

@@ -18,7 +18,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--planet_index",
         required=True,
-        help="Path to feather file containing quad geometries (columns: 'quad', 'geometry').",
+        help="Path to GPKG file containing quad geometries.",
     )
     parser.add_argument(
         "--available_imagery",
@@ -61,7 +61,15 @@ def init_duckdb_connection() -> duckdb.DuckDBPyConnection:
 def load_quads_of_interest(
     planet_index_path: str, available_imagery_path: str
 ) -> gpd.GeoDataFrame:
-    gdf_index = gpd.read_feather(planet_index_path)
+    gdf_index = gpd.read_file(planet_index_path)
+
+    # Create 'quad' column from 'data' column (extract filename without extension)
+    if "data" in gdf_index.columns:
+        gdf_index["quad"] = gdf_index["data"].apply(
+            lambda x: Path(x).stem if isinstance(x, str) else None
+        )
+    elif "quad" not in gdf_index.columns:
+        raise ValueError("Planet index must have either 'data' or 'quad' column.")
 
     # Ensure CRS is WGS84 for compatibility with Overture (GeoParquet is in EPSG:4326)
     if gdf_index.crs is not None and gdf_index.crs.to_epsg() != 4326:
@@ -76,7 +84,7 @@ def load_quads_of_interest(
     available_quads = available["file"].astype(str).str.strip().unique()
 
     if "quad" not in gdf_index.columns:
-        raise ValueError("planet_index feather must have a 'quad' column.")
+        raise ValueError("Planet index must have a 'quad' column.")
 
     gdf_index["quad"] = gdf_index["quad"].astype(str)
 

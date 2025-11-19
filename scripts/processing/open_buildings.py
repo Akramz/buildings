@@ -356,9 +356,19 @@ def load_and_filter_data(available_planet_csv, google_index, planet_index):
 
     # Load planet index to get geometries
     logger.info(f"Loading Planet index from {planet_index}")
-    planet_gdf = pd.read_feather(planet_index)
-    planet_gdf["geometry"] = planet_gdf["geometry"].apply(wkb.loads)
-    planet_gdf = gpd.GeoDataFrame(planet_gdf, geometry="geometry", crs="EPSG:4326")
+    planet_gdf = gpd.read_file(planet_index)
+
+    # Create 'quad' column from 'data' column (extract filename without extension)
+    if "data" in planet_gdf.columns:
+        planet_gdf["quad"] = planet_gdf["data"].apply(
+            lambda x: Path(x).stem if isinstance(x, str) else None
+        )
+    elif "quad" not in planet_gdf.columns:
+        raise ValueError("Planet index must have either 'data' or 'quad' column.")
+
+    # Ensure geometry is properly loaded
+    if planet_gdf.crs is None:
+        planet_gdf = planet_gdf.set_crs("EPSG:4326")
 
     # Merge to get available quads with geometries and years
     available_quads = planet_df.merge(
@@ -465,7 +475,7 @@ def main():
     parser.add_argument(
         "--planet-index",
         required=True,
-        help="Path to feather file with Planet quad geometries",
+        help="Path to GPKG file with Planet quad geometries",
     )
     parser.add_argument(
         "--urls-file",

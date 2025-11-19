@@ -33,18 +33,17 @@ pip install -e .
 
 ### 3. Index Files
 
-You will find two zipped index files in the `data/` directory. **Unzip them first:**
+Download the required index files from Azure:
 
 ```bash
-cd data/
-unzip planet_index.feather.zip
-unzip google_index.feather.zip
-cd ..
+mkdir -p data/
+wget -O data/planet_index.gpkg https://opendata.aiforgood.ai/building-density/tile_index.gpkg
+wget -O data/google_index.feather https://opendata.aiforgood.ai/building-density/google_index.feather
 ```
 
 These provide:
 
-1. **`planet_index.feather`**: Planet quad geometries with columns `quad` (quad name) and `geometry`
+1. **`planet_index.gpkg`**: Planet quad geometries (will be read to create columns `quad` and `geometry`)
 2. **`google_index.feather`**: Google tile index with columns `tile_path`, `geometry`, and `crs`
 
 You need to create the following:
@@ -74,7 +73,7 @@ Download Overture building polygons for your Planet quads:
 
 ```bash
 python scripts/acquisition/overture.py \
-  --planet_index data/planet_index.feather \
+  --planet_index data/planet_index.gpkg \
   --available_imagery data/available_planet_images.csv \
   --release 2024-10-23.0 \
   --output_dir $DATA_ROOT/overture/feathers
@@ -110,7 +109,7 @@ Process Google tiles to create 512×512 density and height masks aligned to Plan
 python scripts/processing/open_buildings.py \
   --available-planet-csv data/available_planet_images.csv \
   --google-index data/google_index.feather \
-  --planet-index data/planet_index.feather \
+  --planet-index data/planet_index.gpkg \
   --urls-file $DATA_ROOT/google_urls.txt \
   --output-dir $DATA_ROOT/google/masks
 ```
@@ -190,27 +189,13 @@ python scripts/infer.py \
 
 **Output:** Predictions saved as `{output_dir}/{quad}.tif` with 2 bands (density, height) in EPSG:3857.
 
-## Citation
-
-Please cite the following paper if you use this code:
-```
-@misc{microsoftbuildings,
-      title={TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery}, 
-      author={Tammy Glazer and Gilles Q. Hacheme and Akram Zaytar and Luana Marotti and Amy Michaels and Girmaw Abebe Tadesse and Kevin White and Rahul Dodhia and Andrew Zolli and Inbal Becker-Reshef and Juan M. Lavista Ferres and Caleb Robinson},
-      year={2025},
-      eprint={2511.12104},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2511.12104}, 
-}
-```
-
 ## Data Attribution
 
 ### Index Files
 
 **Planet Quad Index**
-- **File:** `data/planet_index.feather`
+- **File:** `data/planet_index.gpkg`
+- **Download:** https://opendata.aiforgood.ai/building-density/tile_index.gpkg
 - **Source:** Planet Labs PBC
 - **Description:** Quad geometries for Planet Basemap tile grid system
 - **License:** Proprietary - Planet Labs PBC
@@ -219,6 +204,7 @@ Please cite the following paper if you use this code:
 
 **Google Open Buildings Temporal Index**
 - **File:** `data/google_index.feather`
+- **Download:** https://opendata.aiforgood.ai/building-density/google_index.feather
 - **Source:** Google Research - Open Buildings Temporal Dataset
 - **Description:** Tile index for Google Open Buildings 2.5D Temporal dataset with tile paths, geometries, and coordinate reference systems
 - **License:** Creative Commons Attribution 4.0 (CC BY 4.0)

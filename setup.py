@@ -12,8 +12,8 @@ requirements = [ ]
 test_requirements = [ ]
 
 setup(
-    author="Tammy Glazer, Gilles Quentin Hacheme, Akram Zaytar, Caleb Robinson",
-    author_email='tammy.glazer@microsoft.com',
+    author="Akram Zaytar, Tammy Glazer, Gilles Quentin Hacheme, Caleb Robinson",
+    author_email='akramzaytar@microsoft.com',
     python_requires='>=3.6',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
