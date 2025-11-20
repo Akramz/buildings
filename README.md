@@ -128,7 +128,7 @@ Want to train the model yourself? See **[TRAINING.md](TRAINING.md)** for:
 
 ## Citation
 
-Please cite the following paper if you use this code or dataset:
+Please cite our [paper](https://arxiv.org/abs/2511.12104) if you use this code or dataset:
 ```
 @misc{microsoftbuildings,
       title={TEMPO: Global Temporal Building Density and Height Estimation from Satellite Imagery}, 
