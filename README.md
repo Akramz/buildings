@@ -141,7 +141,6 @@ Please cite our [paper](https://arxiv.org/abs/2511.12104) if you use this code o
 }
 ```
 
-Paper: https://arxiv.org/abs/2511.12104
 
 ---
 
