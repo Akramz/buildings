@@ -176,7 +176,6 @@ class SegmentationDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
             collate_fn=stack_samples,
             persistent_workers=True,
-            in_order=False,
             prefetch_factor=8,
         )
 
