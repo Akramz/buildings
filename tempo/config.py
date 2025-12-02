@@ -93,7 +93,7 @@ class TrainerConfig(BaseModel):
     experiment_short_name: str = "example_experiment"
 
     # generated during validation if not explicitly passed in
-    index: str = None
+    index: Optional[str] = None
     experiment_name: Optional[str] = None
 
     band_normalizers: Optional[List[List[float]]] = None

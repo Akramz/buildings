@@ -125,7 +125,7 @@ class SegmentationTask(pl.LightningModule):
         self.log("train_loss", total_loss)
 
         # Visualize training examples
-        if (epoch < 8) and (batch_idx % self.trainer.num_training_batches == 0):
+        if (epoch < 8) and (batch_idx == 0):
             num_samples = min(10, x.shape[0])
             # First band is Overture, last 3 are RGB
             num_extra_bands = 1
